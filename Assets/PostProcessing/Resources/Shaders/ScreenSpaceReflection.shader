@@ -33,6 +33,7 @@ Shader "Hidden/Post FX/Screen Space Reflection"
         sampler2D _CameraGBufferTexture3;
         sampler2D _CameraReflectionsTexture;
 
+
         float _CurrentMipLevel;
         float _RayStepSize;
         float _MaxRayTraceDistance;
