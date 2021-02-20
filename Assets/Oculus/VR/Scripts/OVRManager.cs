@@ -1408,6 +1408,9 @@ public class OVRManager : MonoBehaviour
 		if (OVRPlugin.initialized)
 			InitOVRManager();
 #endif
+        gpuLevel = 4; 
+        fixedFoveatedRenderingLevel = OVRManager.FixedFoveatedRenderingLevel.High; // it's the maximum foveation level
+        useDynamicFixedFoveatedRendering = true;
 	}
 
 #if UNITY_EDITOR
