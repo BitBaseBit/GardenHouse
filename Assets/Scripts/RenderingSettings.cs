@@ -7,9 +7,8 @@ public class RenderingSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        OVRManager.gpuLevel = 4; 
-        OVRManager.fixedFoveatedRenderingLevel = OVRManager.FixedFoveatedRenderingLevel.HighTop; // it's the maximum foveation level
-        OVRManager.useDynamicFixedFoveatedRendering = false;
+        OVRPlugin.fixedFoveatedRenderingLevel = OVRPlugin.FixedFoveatedRenderingLevel.Medium; // it's the maximum foveation level
+        OVRPlugin.useDynamicFixedFoveatedRendering = false;
     }
 
     // Update is called once per frame

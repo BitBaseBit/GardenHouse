@@ -4241,19 +4241,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &261490953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 261590951}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 559a3d05370c0a54797ba0aed0bde1ec, type: 2}
 --- !u!1 &261590945
 GameObject:
   m_ObjectHideFlags: 0
@@ -4331,7 +4318,6 @@ GameObject:
   - component: {fileID: 261100423}
   - component: {fileID: 267227557}
   - component: {fileID: 260643933}
-  - component: {fileID: 261490953}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -7245,19 +7231,6 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
---- !u!114 &1826445089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214336099929136377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 559a3d05370c0a54797ba0aed0bde1ec, type: 2}
 --- !u!1001 &1828354157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9250,7 +9223,6 @@ GameObject:
   - component: {fileID: 1214336099929136373}
   - component: {fileID: 1214336099929136374}
   - component: {fileID: 1214336099929136375}
-  - component: {fileID: 1826445089}
   - component: {fileID: 1214336099929136379}
   - component: {fileID: 1214336099929136378}
   m_Layer: 0

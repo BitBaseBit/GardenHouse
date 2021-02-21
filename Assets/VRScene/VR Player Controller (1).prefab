@@ -323,7 +323,6 @@ GameObject:
   - component: {fileID: 2356149768437147363}
   - component: {fileID: 2356149768434820289}
   - component: {fileID: 2356149768436689209}
-  - component: {fileID: 2356149768437546093}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -396,19 +395,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &2356149768437546093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2356149768437578435}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 559a3d05370c0a54797ba0aed0bde1ec, type: 2}
 --- !u!1 &2356149768437578437
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,7 +2139,6 @@ GameObject:
   - component: {fileID: 3488189115402627473}
   - component: {fileID: 3488189115402627474}
   - component: {fileID: 3488189115402627475}
-  - component: {fileID: 2356149768987468357}
   - component: {fileID: 3488189115402627487}
   - component: {fileID: 3488189115402627486}
   m_Layer: 0
@@ -2246,19 +2231,6 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
---- !u!114 &2356149768987468357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3488189115402627485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 559a3d05370c0a54797ba0aed0bde1ec, type: 2}
 --- !u!114 &3488189115402627487
 MonoBehaviour:
   m_ObjectHideFlags: 0
