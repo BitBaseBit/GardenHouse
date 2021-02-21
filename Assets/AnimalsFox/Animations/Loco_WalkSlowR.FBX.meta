@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: 348a6547c514d384c9ba1eb1bef11ef4
+timeCreated: 1464262866
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: RigChest
+    100004: RigHead
+    100006: RigJaw1
+    100008: RigLBLeg1
+    100010: RigLBLeg2
+    100012: RigLBLegAnkle
+    100014: RigLBLegDigit11
+    100016: RigLEar1
+    100018: RigLEyelid
+    100020: RigLFLeg1
+    100022: RigLFLeg2
+    100024: RigLFLegAnkle
+    100026: RigLFLegCollarbone
+    100028: RigLFLegDigit11
+    100030: RigNeck1
+    100032: RigNeck2
+    100034: RigPelvis
+    100036: RigRBLeg1
+    100038: RigRBLeg2
+    100040: RigRBLegAnkle
+    100042: RigRBLegDigit11
+    100044: RigREar1
+    100046: RigREyelid
+    100048: RigRFLeg1
+    100050: RigRFLeg2
+    100052: RigRFLegAnkle
+    100054: RigRFLegCollarbone
+    100056: RigRFLegDigit11
+    100058: RigRoot
+    100060: RigSpine1
+    100062: RigSpine2
+    100064: RigTail1
+    100066: RigTail2
+    100068: RigTail3
+    100070: RigTail4
+    100072: RigTail5
+    100074: RigTongue1
+    100076: RigTongue2
+    100078: RigTongue3
+    400000: //RootNode
+    400002: RigChest
+    400004: RigHead
+    400006: RigJaw1
+    400008: RigLBLeg1
+    400010: RigLBLeg2
+    400012: RigLBLegAnkle
+    400014: RigLBLegDigit11
+    400016: RigLEar1
+    400018: RigLEyelid
+    400020: RigLFLeg1
+    400022: RigLFLeg2
+    400024: RigLFLegAnkle
+    400026: RigLFLegCollarbone
+    400028: RigLFLegDigit11
+    400030: RigNeck1
+    400032: RigNeck2
+    400034: RigPelvis
+    400036: RigRBLeg1
+    400038: RigRBLeg2
+    400040: RigRBLegAnkle
+    400042: RigRBLegDigit11
+    400044: RigREar1
+    400046: RigREyelid
+    400048: RigRFLeg1
+    400050: RigRFLeg2
+    400052: RigRFLegAnkle
+    400054: RigRFLegCollarbone
+    400056: RigRFLegDigit11
+    400058: RigRoot
+    400060: RigSpine1
+    400062: RigSpine2
+    400064: RigTail1
+    400066: RigTail2
+    400068: RigTail3
+    400070: RigTail4
+    400072: RigTail5
+    400074: RigTongue1
+    400076: RigTongue2
+    400078: RigTongue3
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: RigRoot
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

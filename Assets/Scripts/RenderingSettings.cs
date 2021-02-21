@@ -8,7 +8,7 @@ public class RenderingSettings : MonoBehaviour
     void Start()
     {
         OVRManager.gpuLevel = 4; 
-        OVRManager.fixedFoveatedRenderingLevel = OVRManager.FixedFoveatedRenderingLevel.High; // it's the maximum foveation level
+        OVRManager.fixedFoveatedRenderingLevel = OVRManager.FixedFoveatedRenderingLevel.HighTop; // it's the maximum foveation level
         OVRManager.useDynamicFixedFoveatedRendering = false;
     }
 
