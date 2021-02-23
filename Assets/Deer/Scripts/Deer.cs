@@ -7,6 +7,10 @@ public class Deer : MonoBehaviour
     public Animator deer;
     private IEnumerator coroutine;
     private int deerID;
+
+    private float timer;
+
+    private bool isWalking = false;
         
 	// Use this for initialization
 	void Start () 
@@ -21,21 +25,150 @@ public class Deer : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f
-            || this.transform.position.z < -52.0f || this.transform.position.x < -48.0f)
+        timer += Time.deltaTime;
+        switch (deerID)
         {
-            deer.SetBool("idle", true);
-            deer.SetBool("walking", false);
-            deer.SetBool("turnleft", false);
-            deer.SetBool("turnright", false);
-            deer.SetBool("trotting", false);
-            deer.SetBool("trotleft", false);
-            deer.SetBool("trotright", false);
-            deer.SetBool("galloping", false);
-            deer.SetBool("eating", false);
-            deer.SetBool("jumping", false);
-            deer.SetBool("galloping", false);
+            case 1:
+                if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f
+                    || this.transform.position.z < -52.0f || this.transform.position.x < -48.0f)
+                {
+                    deer.SetBool("idle", true);
+                    deer.SetBool("walking", false);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
+                    deer.SetBool("galloping", false);
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    deer.SetBool("galloping", false);
+                    return;
+                }    
+                if (!isWalking)
+                {
+                    deer.SetBool("idle", false);
+                    deer.SetBool("walking", true);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
+                    deer.SetBool("galloping", false);
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    deer.SetBool("galloping", false);
+                    isWalking = true;
+                }    
+                break;
 
+            case 2:
+                if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f
+                    || this.transform.position.z < -52.0f || this.transform.position.x < -48.0f)
+                {
+                    deer.SetBool("idle", true);
+                    deer.SetBool("walking", false);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
+                    deer.SetBool("galloping", false);
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    deer.SetBool("galloping", false);
+                    return;
+                }    
+                if (!isWalking)
+                {
+                    deer.SetBool("idle", false);
+                    deer.SetBool("walking", true);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
+                    deer.SetBool("galloping", false);
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    deer.SetBool("galloping", false);
+                    isWalking = true;
+                }    
+                break;
+
+            case 3:
+                if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f
+                    || this.transform.position.z < -52.0f || this.transform.position.x < -48.0f)
+                {
+                    deer.SetBool("idle", true);
+                    deer.SetBool("walking", false);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
+                    deer.SetBool("galloping", false);
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    deer.SetBool("galloping", false);
+                    return;
+
+                }    
+                if (!isWalking)
+                {
+                    deer.SetBool("idle", false);
+                    deer.SetBool("walking", true);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
+                    deer.SetBool("galloping", false);
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    deer.SetBool("galloping", false);
+                    isWalking = true;
+                }    
+                break;
+
+            case 4: 
+                if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f
+                    || this.transform.position.z < -52.0f || this.transform.position.x < -48.0f)
+                {
+                    deer.SetBool("idle", true);
+                    deer.SetBool("walking", false);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
+                    deer.SetBool("galloping", false);
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    deer.SetBool("galloping", false);
+                    return;
+                }    
+                if (!isWalking)
+                {
+                    deer.SetBool("idle", false);
+                    deer.SetBool("walking", true);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
+                    deer.SetBool("galloping", false);
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    deer.SetBool("galloping", false);
+                    isWalking = true;
+                }    
+                break;
+
+            default:
+                Debug.LogError("Something went wrong with this deer's deerID, it did not match any of the switch cases in the update loop." +
+                    " Deer: " + this.gameObject.name + "'s deerID is" + deerID);
+                break;
         }    
         //var dustEmission = GetComponent<ParticleSystem>().emission;
         //dustEmission.enabled = false;
