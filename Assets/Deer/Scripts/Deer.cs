@@ -25,7 +25,10 @@ public class Deer : MonoBehaviour
     private bool        scene2Rotation    = false;
     private bool        scene3Rotation    = false;
     private bool        scene5Rotation    = false;
-    private bool        scene8Rotation    = false;
+    private bool        scene9Rotation    = false;
+    private bool        scene12Rotation   = false;
+    private bool        scene13Rotation   = false;
+    private bool        scene14Rotation   = false;
 
     // ------------------------------------------------------------------------
     // Handle the transisions of state
@@ -220,8 +223,9 @@ public class Deer : MonoBehaviour
 
                 if (scene2Rotation)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 30.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 30.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                    //    Quaternion.Euler(transform.rotation.eulerAngles.x, 30.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
                 }
 
                 if (state3 && sceneTimer > 6)
@@ -234,8 +238,9 @@ public class Deer : MonoBehaviour
 
                 if (scene3Rotation)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                    //    Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
                 }
 
                 if (state4)
@@ -256,8 +261,9 @@ public class Deer : MonoBehaviour
 
                 if (scene5Rotation)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
-                        Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
+                    //    Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
                 }
 
                 if (state6)
@@ -279,12 +285,96 @@ public class Deer : MonoBehaviour
                 if (state8)
                 {
                     debugText.text = "State 8";
-                    StartCoroutine(SceneWait(1.2f, 8));
+                    StartCoroutine(StopTurnToIdle(1.2f, 8));
                 }    
+
+                if (state9)
+                {
+                    debugText.text = "State 9";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(2.1f, 9));
+                }    
+
+                if (scene9Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
+                }
+
+                if (state10 && sceneTimer > 6)
+                {
+                    debugText.text = "State 10";
+                    deer.SetBool(walking, false);
+                    deer.SetBool(_idle, true);
+                    StartCoroutine(SceneWait(5.5f, 10));
+                }
+
+                if (state11)
+                {
+                    debugText.text = "State 11";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(galloping, true);
+                    StartCoroutine(SceneWait(4.5f, 11));
+                }
+
+                if (state12)
+                {
+                    debugText.text = "State 12";
+                    deer.SetBool(galloping, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(3.0f, 12));
+                }
+
+                if (state13)
+                {
+                    debugText.text = "State 13";
+                    StartCoroutine(SceneWait(2.1f, 13));
+                }
+
+                if (scene13Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 150.0f, 30.0f);
+                }
+
+                if (state14)
+                {
+                    debugText.text = "State 14";
+                    StartCoroutine(SceneWait(3.1f, 14));
+                }
+                if (scene14Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 240.0f, 30.0f);
+                }
+
+                if (state15 && sceneTimer > 3.2)
+                {
+                    deer.SetBool(walking, false);
+                    deer.SetBool(eating, true);
+                    StartCoroutine(SceneWait(6.3f, 15));
+                }
+
    
                 break;
 
             case 2:
+                sceneTimer += Time.deltaTime;
+                // Should the deer run away from the player?
+                // TODO HANDLE RUNNING AWAY FROM PLAYER
+                //if (startRunAwaySeq)
+                //{
+                //    // Which way to run
+                //    if (deerTransform.position.x > -3.0f)
+                //    {
+                //        if (deer.GetBool(lay))
+                //        {
+                //            deer.SetBool(lay, false);
+                //            deer.SetBool(up, true);
+
+                //        }
+                //    }
+
+                //}
+
                 // ------------------------------------------------------------
                 // This code handles turning the deer around when it reaches the boundaries
                 if (shouldTurnRight_1 && !shouldTurnRight_2)
@@ -340,9 +430,180 @@ public class Deer : MonoBehaviour
                 }
                 // End of boundary handling code.
                 // ------------------------------------------------------------
+
+                if ((sceneTimer > UnityEngine.Random.Range(2,7)) && state1)
+                {
+                    debugText.text = "State 1";
+                    state1 = false;
+                    Debug.Log("scene 1");
+                    sceneTimer = 0.0f;
+                    deer.SetBool(eating, false);
+                    deer.SetBool(_idle, true);
+                    state2 = true;
+                }
+
+                if ( state2 && sceneTimer > 10 )
+                {
+                    debugText.text = "State 2";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(4.1f, 2));
+                }    
+
+                if (scene2Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 30.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                    //    Quaternion.Euler(transform.rotation.eulerAngles.x, 30.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state3 && sceneTimer > 6)
+                {
+                    debugText.text = "State 3";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(4.1f, 3));
+                }    
+
+                if (scene3Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                    //    Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state4)
+                {
+                    debugText.text = "State 4";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(eating, true);
+                    StartCoroutine(SceneWait(4.0f, 4));
+                }
+
+                if (state5 && sceneTimer > 5.5)
+                {
+                    debugText.text = "State 5";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(5.1f, 5));
+                }
+
+                if (scene5Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
+                    //    Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state6)
+                {
+                    debugText.text = "State 6";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(lay, true);
+                    StartCoroutine(SceneWait(3.0f, 6));
+                }    
+
+                if (state7)
+                {
+                    debugText.text = "State 7";
+                    deer.SetBool(lay, false);
+                    deer.SetBool(up, true);
+                    StartCoroutine(SceneWait(1.3f, 7));
+                }    
+
+                if (state8)
+                {
+                    debugText.text = "State 8";
+                    StartCoroutine(StopTurnToIdle(1.2f, 8));
+                }    
+
+                if (state9)
+                {
+                    debugText.text = "State 9";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(2.1f, 9));
+                }    
+
+                if (scene9Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
+                }
+
+                if (state10 && sceneTimer > 6)
+                {
+                    debugText.text = "State 10";
+                    deer.SetBool(walking, false);
+                    deer.SetBool(_idle, true);
+                    StartCoroutine(SceneWait(5.5f, 10));
+                }
+
+                if (state11)
+                {
+                    debugText.text = "State 11";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(galloping, true);
+                    StartCoroutine(SceneWait(4.5f, 11));
+                }
+
+                if (state12)
+                {
+                    debugText.text = "State 12";
+                    deer.SetBool(galloping, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(3.0f, 12));
+                }
+
+                if (state13)
+                {
+                    debugText.text = "State 13";
+                    StartCoroutine(SceneWait(2.1f, 13));
+                }
+
+                if (scene13Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 150.0f, 30.0f);
+                }
+
+                if (state14)
+                {
+                    debugText.text = "State 14";
+                    StartCoroutine(SceneWait(3.1f, 14));
+                }
+                if (scene14Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 240.0f, 30.0f);
+                }
+
+                if (state15 && sceneTimer > 3.2)
+                {
+                    deer.SetBool(walking, false);
+                    deer.SetBool(eating, true);
+                    StartCoroutine(SceneWait(6.3f, 15));
+                }
+
+   
                 break;
 
             case 3:
+                sceneTimer += Time.deltaTime;
+                // Should the deer run away from the player?
+                // TODO HANDLE RUNNING AWAY FROM PLAYER
+                //if (startRunAwaySeq)
+                //{
+                //    // Which way to run
+                //    if (deerTransform.position.x > -3.0f)
+                //    {
+                //        if (deer.GetBool(lay))
+                //        {
+                //            deer.SetBool(lay, false);
+                //            deer.SetBool(up, true);
+
+                //        }
+                //    }
+
+                //}
+
                 // ------------------------------------------------------------
                 // This code handles turning the deer around when it reaches the boundaries
                 if (shouldTurnRight_1 && !shouldTurnRight_2)
@@ -398,9 +659,180 @@ public class Deer : MonoBehaviour
                 }
                 // End of boundary handling code.
                 // ------------------------------------------------------------
+
+                if ((sceneTimer > UnityEngine.Random.Range(2,7)) && state1)
+                {
+                    debugText.text = "State 1";
+                    state1 = false;
+                    Debug.Log("scene 1");
+                    sceneTimer = 0.0f;
+                    deer.SetBool(eating, false);
+                    deer.SetBool(_idle, true);
+                    state2 = true;
+                }
+
+                if ( state2 && sceneTimer > 10 )
+                {
+                    debugText.text = "State 2";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(4.1f, 2));
+                }    
+
+                if (scene2Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 30.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                    //    Quaternion.Euler(transform.rotation.eulerAngles.x, 30.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state3 && sceneTimer > 6)
+                {
+                    debugText.text = "State 3";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(4.1f, 3));
+                }    
+
+                if (scene3Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                    //    Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state4)
+                {
+                    debugText.text = "State 4";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(eating, true);
+                    StartCoroutine(SceneWait(4.0f, 4));
+                }
+
+                if (state5 && sceneTimer > 5.5)
+                {
+                    debugText.text = "State 5";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(5.1f, 5));
+                }
+
+                if (scene5Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
+                    //    Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state6)
+                {
+                    debugText.text = "State 6";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(lay, true);
+                    StartCoroutine(SceneWait(3.0f, 6));
+                }    
+
+                if (state7)
+                {
+                    debugText.text = "State 7";
+                    deer.SetBool(lay, false);
+                    deer.SetBool(up, true);
+                    StartCoroutine(SceneWait(1.3f, 7));
+                }    
+
+                if (state8)
+                {
+                    debugText.text = "State 8";
+                    StartCoroutine(StopTurnToIdle(1.2f, 8));
+                }    
+
+                if (state9)
+                {
+                    debugText.text = "State 9";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(2.1f, 9));
+                }    
+
+                if (scene9Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
+                }
+
+                if (state10 && sceneTimer > 6)
+                {
+                    debugText.text = "State 10";
+                    deer.SetBool(walking, false);
+                    deer.SetBool(_idle, true);
+                    StartCoroutine(SceneWait(5.5f, 10));
+                }
+
+                if (state11)
+                {
+                    debugText.text = "State 11";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(galloping, true);
+                    StartCoroutine(SceneWait(4.5f, 11));
+                }
+
+                if (state12)
+                {
+                    debugText.text = "State 12";
+                    deer.SetBool(galloping, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(3.0f, 12));
+                }
+
+                if (state13)
+                {
+                    debugText.text = "State 13";
+                    StartCoroutine(SceneWait(2.1f, 13));
+                }
+
+                if (scene13Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 150.0f, 30.0f);
+                }
+
+                if (state14)
+                {
+                    debugText.text = "State 14";
+                    StartCoroutine(SceneWait(3.1f, 14));
+                }
+                if (scene14Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 240.0f, 30.0f);
+                }
+
+                if (state15 && sceneTimer > 3.2)
+                {
+                    deer.SetBool(walking, false);
+                    deer.SetBool(eating, true);
+                    StartCoroutine(SceneWait(6.3f, 15));
+                }
+
+   
                 break;
 
             case 4: 
+                sceneTimer += Time.deltaTime;
+                // Should the deer run away from the player?
+                // TODO HANDLE RUNNING AWAY FROM PLAYER
+                //if (startRunAwaySeq)
+                //{
+                //    // Which way to run
+                //    if (deerTransform.position.x > -3.0f)
+                //    {
+                //        if (deer.GetBool(lay))
+                //        {
+                //            deer.SetBool(lay, false);
+                //            deer.SetBool(up, true);
+
+                //        }
+                //    }
+
+                //}
+
                 // ------------------------------------------------------------
                 // This code handles turning the deer around when it reaches the boundaries
                 if (shouldTurnRight_1 && !shouldTurnRight_2)
@@ -456,6 +888,158 @@ public class Deer : MonoBehaviour
                 }
                 // End of boundary handling code.
                 // ------------------------------------------------------------
+
+                if ((sceneTimer > UnityEngine.Random.Range(2,7)) && state1)
+                {
+                    debugText.text = "State 1";
+                    state1 = false;
+                    Debug.Log("scene 1");
+                    sceneTimer = 0.0f;
+                    deer.SetBool(eating, false);
+                    deer.SetBool(_idle, true);
+                    state2 = true;
+                }
+
+                if ( state2 && sceneTimer > 10 )
+                {
+                    debugText.text = "State 2";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(4.1f, 2));
+                }    
+
+                if (scene2Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 30.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                    //    Quaternion.Euler(transform.rotation.eulerAngles.x, 30.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state3 && sceneTimer > 6)
+                {
+                    debugText.text = "State 3";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(4.1f, 3));
+                }    
+
+                if (scene3Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                    //    Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state4)
+                {
+                    debugText.text = "State 4";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(eating, true);
+                    StartCoroutine(SceneWait(4.0f, 4));
+                }
+
+                if (state5 && sceneTimer > 5.5)
+                {
+                    debugText.text = "State 5";
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(5.1f, 5));
+                }
+
+                if (scene5Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
+                    //deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
+                    //    Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state6)
+                {
+                    debugText.text = "State 6";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(lay, true);
+                    StartCoroutine(SceneWait(3.0f, 6));
+                }    
+
+                if (state7)
+                {
+                    debugText.text = "State 7";
+                    deer.SetBool(lay, false);
+                    deer.SetBool(up, true);
+                    StartCoroutine(SceneWait(1.3f, 7));
+                }    
+
+                if (state8)
+                {
+                    debugText.text = "State 8";
+                    StartCoroutine(StopTurnToIdle(1.2f, 8));
+                }    
+
+                if (state9)
+                {
+                    debugText.text = "State 9";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(2.1f, 9));
+                }    
+
+                if (scene9Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
+                }
+
+                if (state10 && sceneTimer > 6)
+                {
+                    debugText.text = "State 10";
+                    deer.SetBool(walking, false);
+                    deer.SetBool(_idle, true);
+                    StartCoroutine(SceneWait(5.5f, 10));
+                }
+
+                if (state11)
+                {
+                    debugText.text = "State 11";
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(galloping, true);
+                    StartCoroutine(SceneWait(4.5f, 11));
+                }
+
+                if (state12)
+                {
+                    debugText.text = "State 12";
+                    deer.SetBool(galloping, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(3.0f, 12));
+                }
+
+                if (state13)
+                {
+                    debugText.text = "State 13";
+                    StartCoroutine(SceneWait(2.1f, 13));
+                }
+
+                if (scene13Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 150.0f, 30.0f);
+                }
+
+                if (state14)
+                {
+                    debugText.text = "State 14";
+                    StartCoroutine(SceneWait(3.1f, 14));
+                }
+                if (scene14Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 240.0f, 30.0f);
+                }
+
+                if (state15 && sceneTimer > 3.2)
+                {
+                    deer.SetBool(walking, false);
+                    deer.SetBool(eating, true);
+                    StartCoroutine(SceneWait(6.3f, 15));
+                }
+
                 break;
 
             default:
@@ -830,7 +1414,6 @@ public class Deer : MonoBehaviour
                 break;
 
             case 8:
-                scene8Rotation = true;
                 state8         = false;
 
                 yield return new WaitForSeconds(time);
@@ -878,8 +1461,59 @@ public class Deer : MonoBehaviour
                 deer.SetBool(up, false);
                 deer.SetBool(_idle, true);
                 break;
-            case 8:
-                state8 = false;
+
+            case 9:
+                state9         = false;
+                scene9Rotation = true;
+
+                yield return new WaitForSeconds(time);
+                scene9Rotation = false;
+                state10        = true;
+                sceneTimer     = 0.0f;
+                break;
+            case 10:
+                state10 = false;
+                yield return new WaitForSeconds(time);
+                state11 = true;
+                break;
+
+            case 11:
+                state11 = false;
+                yield return new WaitForSeconds(time);
+                state12 = true;
+                break;
+
+            case 12:
+                state12 = false;
+                yield return new WaitForSeconds(time);
+                state13 = true;
+                break;
+
+            case 13:
+                state13         = false;
+                scene13Rotation = true;
+
+                yield return new WaitForSeconds(time);
+
+                scene13Rotation = false;
+                state14         = true;
+                break;
+
+            case 14:
+                state14         = false;
+                scene14Rotation = true;
+
+                yield return new WaitForSeconds(time);
+
+                sceneTimer      = 0;
+                scene14Rotation = false;
+                state15         = true;
+                break;
+
+            case 15:
+                state15 = false;
+                yield return new WaitForSeconds(time);
+                state16 = true;
                 break;
         }
     }
