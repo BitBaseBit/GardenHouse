@@ -12,15 +12,17 @@ public class Deer : MonoBehaviour
     private float       globalTimer;
     private float       sceneTimer;
     
-    private bool isWalking         = false;
-    private bool shouldTurnRight_1 = false;
-    private bool shouldTurnRight_2 = false;
-    private bool turning           = false;
-    private bool shouldTurnLeft_1  = false;
-    private bool shouldTurnLeft_2  = false;
-    private bool startRunAwaySeq   = false;
-    private bool scene2Rotation    = false;
-    private bool scene3Rotation    = false;
+    private bool        isWalking         = false;
+    private bool        shouldTurnRight_1 = false;
+    private bool        shouldTurnRight_2 = false;
+    private bool        turning           = false;
+    private bool        shouldTurnLeft_1  = false;
+    private bool        shouldTurnLeft_2  = false;
+    private bool        startRunAwaySeq   = false;
+    private bool        scene2Rotation    = false;
+    private bool        scene3Rotation    = false;
+    private bool        scene5Rotation    = false;
+    private bool        scene8Rotation    = false;
 
     // ------------------------------------------------------------------------
     // Handle the transisions of state
@@ -106,6 +108,9 @@ public class Deer : MonoBehaviour
         deer.SetBool(trotRight, false);
         deer.SetBool(galloping, false);
         deer.SetBool(jumping, false);
+
+        // This sets off the animation sequence
+        state1 = true;
 	}
 	
 	// Update is called once per frame
@@ -194,9 +199,9 @@ public class Deer : MonoBehaviour
                 // End of boundary handling code.
                 // ------------------------------------------------------------
 
-                if ((sceneTimer > UnityEngine.Random.Range(2,7)) && !state1)
+                if ((sceneTimer > UnityEngine.Random.Range(2,7)) && state1)
                 {
-                    state1 = true;
+                    state1 = false;
                     Debug.Log("scene 1");
                     sceneTimer = 0.0f;
                     deer.SetBool(eating, false);
@@ -206,7 +211,6 @@ public class Deer : MonoBehaviour
 
                 if ( state2 && sceneTimer > 10 )
                 {
-                    state2 = true;
                     deer.SetBool(walking, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(StopTurnToIdle(4.1f, 2));
@@ -220,9 +224,55 @@ public class Deer : MonoBehaviour
 
                 if (state3 && sceneTimer > 6)
                 {
-
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(4.1f, 3));
                 }    
 
+                if (scene3Rotation)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state4)
+                {
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(eating, true);
+                    StartCoroutine(SceneWait(4.0f, 4));
+                }
+
+                if (state5 && sceneTimer > 5.5)
+                {
+                    deer.SetBool(walking, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(StopTurnToIdle(5.1f, 5));
+                }
+
+                if (scene5Rotation)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                }
+
+                if (state6)
+                {
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(lay, true);
+                    StartCoroutine(SceneWait(3.0f, 6));
+                }    
+
+                if (state7)
+                {
+                    deer.SetBool(lay, false);
+                    deer.SetBool(up, true);
+                    StartCoroutine(SceneWait(1.3f, 7));
+                }    
+
+                if (state8)
+                {
+                    StartCoroutine(SceneWait(1.2f, 8));
+                }    
    
                 break;
 
@@ -646,6 +696,36 @@ public class Deer : MonoBehaviour
         //}
     }
 
+    private void ResetAllState()
+    {
+        state1  = false;
+        state2  = false;
+        state3  = false;
+        state4  = false;
+        state5  = false;
+        state6  = false;
+        state7  = false;
+        state8  = false;
+        state9  = false;
+        state10 = false;
+        state11 = false;
+        state12 = false;
+        state13 = false;
+        state14 = false;
+        state15 = false;
+        state16 = false;
+        state17 = false;
+        state18 = false;
+        state19 = false;
+        state20 = false;
+        state21 = false;
+        state22 = false;
+        state23 = false;
+        state24 = false;
+        state25 = false;
+        state26 = false;
+    }
+
 
     IEnumerator StopTurningLeft_1()
     {
@@ -707,6 +787,8 @@ public class Deer : MonoBehaviour
             case 2:
                 scene2Rotation = true;
 
+                state2 = false;
+
                 yield return new WaitForSeconds(time);
                 state3 = true;
 
@@ -716,7 +798,46 @@ public class Deer : MonoBehaviour
                 deer.SetBool(walking, false);
                 deer.SetBool(_idle, true);
                 break;
+
             case 3:
+                scene3Rotation = true;
+                state3         = false;
+
+                yield return new WaitForSeconds(time);
+
+                sceneTimer     = 0;
+                scene3Rotation = false;
+
+                deer.SetBool(walking, false);
+                deer.SetBool(_idle, true);
+                state4 = true;
+                break;
+
+            case 5:
+                scene5Rotation = true;
+                state5         = false;
+
+                yield return new WaitForSeconds(time);
+
+                sceneTimer     = 0;
+                scene5Rotation = false;
+
+                deer.SetBool(_idle, true);
+                deer.SetBool(walking, false);
+
+                state6 = true;
+
+                break;
+
+            case 8:
+                scene8Rotation = true;
+                state8         = false;
+
+                yield return new WaitForSeconds(time);
+
+                state9 = true;
+                deer.SetBool(_idle, true);
+                deer.SetBool(walking, false);
                 break;
 
         }    
@@ -727,6 +848,40 @@ public class Deer : MonoBehaviour
         deer.SetBool(lay, false);
         deer.SetBool(up, true);
         yield return new WaitForSeconds(1.20f);
+    }
+
+    IEnumerator SceneWait(float time, int sceneNumber)
+    {
+        switch (sceneNumber)
+        {
+            case 4:
+                state4 = false;
+
+                yield return new WaitForSeconds(time);
+
+                state5 = true;
+                deer.SetBool(eating, false);
+                deer.SetBool(_idle, true);
+                sceneTimer = 0;
+                break;
+
+            case 6:
+                state6 = false;
+                yield return new WaitForSeconds(time);
+                state7 = true;
+                break;
+
+            case 7:
+                state7 = false;
+                yield return new WaitForSeconds(time);
+                state8 = true;
+                deer.SetBool(up, false);
+                deer.SetBool(_idle, true);
+                break;
+            case 8:
+                state8 = false;
+                break;
+        }
     }
 
     IEnumerator StartRunAway()
