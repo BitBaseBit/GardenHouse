@@ -11,18 +11,15 @@ public class Deer : MonoBehaviour
 
     private float timer;
 
-    private const double epsilon = 0.0001;
 
     private bool isWalking = false;
     private bool shouldTurnRight_1 = false;
     private bool shouldTurnRight_2 = false;
 
     private bool turning = false;
-    private bool coroCalled = false;
 
     private bool shouldTurnLeft_1 = false;
     private bool shouldTurnLeft_2 = false;
-    private int turnCount = 0;
 
 
     // hashed keys for SetBool
@@ -36,6 +33,7 @@ public class Deer : MonoBehaviour
     private int jumping;
     private int trotLeft;
     private int trotRight;
+    private int galloping;
 
 	// Use this for initialization
 	void Start () 
@@ -43,10 +41,6 @@ public class Deer : MonoBehaviour
         string deername = deer.gameObject.name;
         // 'Convert' char to int.
         deerID = deername[4] - '0';
-        Debug.Log(deerID);
-
-        if (deerID == 1)
-            deer.SetBool("walking", true);
 
         turnLeft = Animator.StringToHash("turnLeft");
         turnRight = Animator.StringToHash("turnRight");
@@ -57,8 +51,20 @@ public class Deer : MonoBehaviour
         jumping = Animator.StringToHash("jumping");
         trotLeft = Animator.StringToHash("trotleft");
         trotRight = Animator.StringToHash("trotright");
+        galloping = Animator.StringToHash("galloping");
 
-	
+        // Will always show the states that are true first, 
+        // makes it faster to read what is going on.
+        deer.SetBool(eating, true);
+        deer.SetBool(_idle, false);
+        deer.SetBool(walking, false);
+        deer.SetBool(turnLeft, false);
+        deer.SetBool(turnRight, false);
+        deer.SetBool(trotting, false);
+        deer.SetBool(trotLeft, false);
+        deer.SetBool(trotRight, false);
+        deer.SetBool(galloping, false);
+        deer.SetBool(jumping, false);
 	}
 	
 	// Update is called once per frame
@@ -68,6 +74,8 @@ public class Deer : MonoBehaviour
         switch (deerID)
         {
             case 1:
+                // ------------------------------------------------------------
+                // This code handles turning the deer around when it reaches the boundaries
                 if (shouldTurnRight_1 && !shouldTurnRight_2)
                 {
                     deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
@@ -110,6 +118,7 @@ public class Deer : MonoBehaviour
                     return;
                 } 
                 if ((this.transform.position.x < -41.0f || this.transform.position.z < -52.0f ) && !turning)
+                {
                     shouldTurnRight_1 = true;
                     deer.SetBool("idle", false);
                     deer.SetBool("walking", true);
@@ -122,51 +131,42 @@ public class Deer : MonoBehaviour
                     deer.SetBool("eating", false);
                     deer.SetBool("jumping", false);
                     return;
-               {
-
                 }
+                // End of boundary handling code.
+                // ------------------------------------------------------------
    
-                //if (!isWalking && shouldTurn)
-                //{
-                //    deer.SetBool("idle", false);
-                //    deer.SetBool("walking", false);
-                //    if (turnCount < 3)
-                //    {
-                //        deer.SetBool("turnleft", true);
-                //        turnCount++;
-                //    }
-
-                //    deer.SetBool("turnright", false);
-                //    deer.SetBool("trotting", false);
-                //    deer.SetBool("trotleft", false);
-                //    deer.SetBool("trotright", false);
-                //    deer.SetBool("galloping", false);
-                //    deer.SetBool("eating", false);
-                //    deer.SetBool("jumping", false);
-                //    deer.SetBool("galloping", false);
-                //    isWalking = true;
-                //}    
                 break;
 
             case 2:
-                if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f
-                    || this.transform.position.z < -52.0f || this.transform.position.x < -48.0f)
+                if (shouldTurnRight_1 && !shouldTurnRight_2)
                 {
-                    deer.SetBool("idle", true);
-                    deer.SetBool("walking", false);
-                    deer.SetBool("turnleft", false);
-                    deer.SetBool("turnright", false);
-                    deer.SetBool("trotting", false);
-                    deer.SetBool("trotleft", false);
-                    deer.SetBool("trotright", false);
-                    deer.SetBool("galloping", false);
-                    deer.SetBool("eating", false);
-                    deer.SetBool("jumping", false);
-                    deer.SetBool("galloping", false);
-                    return;
-                }    
-                if (!isWalking)
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, -120.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningRight_1");
+                }
+                if (!shouldTurnRight_1 && shouldTurnRight_2)
                 {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, 90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningRight_2");
+                }
+                if (shouldTurnLeft_1 && !shouldTurnLeft_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningLeft_1");
+                }
+                if (!shouldTurnLeft_1 && shouldTurnLeft_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    Debug.Log("Got here 2");
+                    StartCoroutine("StopTurningLeft_2");
+                }
+                if ((this.transform.position.z > -25.0f || this.transform.position.x > 41.0f) && !turning)
+                {
+                    shouldTurnLeft_1 = true;
+
                     deer.SetBool("idle", false);
                     deer.SetBool("walking", true);
                     deer.SetBool("turnleft", false);
@@ -177,31 +177,55 @@ public class Deer : MonoBehaviour
                     deer.SetBool("galloping", false);
                     deer.SetBool("eating", false);
                     deer.SetBool("jumping", false);
+                    return;
+                } 
+                if ((this.transform.position.x < -41.0f || this.transform.position.z < -52.0f ) && !turning)
+                {
+                    shouldTurnRight_1 = true;
+                    deer.SetBool("idle", false);
+                    deer.SetBool("walking", true);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
                     deer.SetBool("galloping", false);
-                    isWalking = true;
-                }    
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    return;
+                }
                 break;
 
             case 3:
-                if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f
-                    || this.transform.position.z < -52.0f || this.transform.position.x < -48.0f)
+                if (shouldTurnRight_1 && !shouldTurnRight_2)
                 {
-                    deer.SetBool("idle", true);
-                    deer.SetBool("walking", false);
-                    deer.SetBool("turnleft", false);
-                    deer.SetBool("turnright", false);
-                    deer.SetBool("trotting", false);
-                    deer.SetBool("trotleft", false);
-                    deer.SetBool("trotright", false);
-                    deer.SetBool("galloping", false);
-                    deer.SetBool("eating", false);
-                    deer.SetBool("jumping", false);
-                    deer.SetBool("galloping", false);
-                    return;
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, -120.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningRight_1");
+                }
+                if (!shouldTurnRight_1 && shouldTurnRight_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, 90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningRight_2");
+                }
+                if (shouldTurnLeft_1 && !shouldTurnLeft_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningLeft_1");
+                }
+                if (!shouldTurnLeft_1 && shouldTurnLeft_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    Debug.Log("Got here 2");
+                    StartCoroutine("StopTurningLeft_2");
+                }
+                if ((this.transform.position.z > -25.0f || this.transform.position.x > 41.0f) && !turning)
+                {
+                    shouldTurnLeft_1 = true;
 
-                }    
-                if (!isWalking)
-                {
                     deer.SetBool("idle", false);
                     deer.SetBool("walking", true);
                     deer.SetBool("turnleft", false);
@@ -212,30 +236,55 @@ public class Deer : MonoBehaviour
                     deer.SetBool("galloping", false);
                     deer.SetBool("eating", false);
                     deer.SetBool("jumping", false);
+                    return;
+                } 
+                if ((this.transform.position.x < -41.0f || this.transform.position.z < -52.0f ) && !turning)
+                {
+                    shouldTurnRight_1 = true;
+                    deer.SetBool("idle", false);
+                    deer.SetBool("walking", true);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
                     deer.SetBool("galloping", false);
-                    isWalking = true;
-                }    
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    return;
+                }
                 break;
 
             case 4: 
-                if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f
-                    || this.transform.position.z < -52.0f || this.transform.position.x < -48.0f)
+                if (shouldTurnRight_1 && !shouldTurnRight_2)
                 {
-                    deer.SetBool("idle", true);
-                    deer.SetBool("walking", false);
-                    deer.SetBool("turnleft", false);
-                    deer.SetBool("turnright", false);
-                    deer.SetBool("trotting", false);
-                    deer.SetBool("trotleft", false);
-                    deer.SetBool("trotright", false);
-                    deer.SetBool("galloping", false);
-                    deer.SetBool("eating", false);
-                    deer.SetBool("jumping", false);
-                    deer.SetBool("galloping", false);
-                    return;
-                }    
-                if (!isWalking)
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, -120.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningRight_1");
+                }
+                if (!shouldTurnRight_1 && shouldTurnRight_2)
                 {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, 90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningRight_2");
+                }
+                if (shouldTurnLeft_1 && !shouldTurnLeft_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningLeft_1");
+                }
+                if (!shouldTurnLeft_1 && shouldTurnLeft_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    Debug.Log("Got here 2");
+                    StartCoroutine("StopTurningLeft_2");
+                }
+                if ((this.transform.position.z > -25.0f || this.transform.position.x > 41.0f) && !turning)
+                {
+                    shouldTurnLeft_1 = true;
+
                     deer.SetBool("idle", false);
                     deer.SetBool("walking", true);
                     deer.SetBool("turnleft", false);
@@ -246,9 +295,23 @@ public class Deer : MonoBehaviour
                     deer.SetBool("galloping", false);
                     deer.SetBool("eating", false);
                     deer.SetBool("jumping", false);
+                    return;
+                } 
+                if ((this.transform.position.x < -41.0f || this.transform.position.z < -52.0f ) && !turning)
+                {
+                    shouldTurnRight_1 = true;
+                    deer.SetBool("idle", false);
+                    deer.SetBool("walking", true);
+                    deer.SetBool("turnleft", false);
+                    deer.SetBool("turnright", false);
+                    deer.SetBool("trotting", false);
+                    deer.SetBool("trotleft", false);
+                    deer.SetBool("trotright", false);
                     deer.SetBool("galloping", false);
-                    isWalking = true;
-                }    
+                    deer.SetBool("eating", false);
+                    deer.SetBool("jumping", false);
+                    return;
+                }
                 break;
 
             default:
@@ -481,6 +544,8 @@ public class Deer : MonoBehaviour
         //    deer.SetBool("idle",false);
         //}
     }
+
+
     IEnumerator StopTurningLeft_1()
     {
         turning = true;
