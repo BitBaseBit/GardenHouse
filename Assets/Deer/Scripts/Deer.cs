@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 using System.Collections;
 using System;
 
@@ -8,6 +9,8 @@ public class Deer : MonoBehaviour
     public  Transform   deerTransform;
     private IEnumerator coroutine;
     private int         deerID;
+
+    TextMeshPro debugText;
     
     private float       globalTimer;
     private float       sceneTimer;
@@ -111,6 +114,8 @@ public class Deer : MonoBehaviour
 
         // This sets off the animation sequence
         state1 = true;
+
+        debugText = GameObject.FindGameObjectWithTag("textMesh").GetComponent<TextMeshPro>();
 	}
 	
 	// Update is called once per frame
@@ -142,27 +147,22 @@ public class Deer : MonoBehaviour
                 // This code handles turning the deer around when it reaches the boundaries
                 if (shouldTurnRight_1 && !shouldTurnRight_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -120.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, -120.0f, 30.0f);
                     StartCoroutine("StopTurningRight_1");
                 }
                 if (!shouldTurnRight_1 && shouldTurnRight_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
                     StartCoroutine("StopTurningRight_2");
                 }
                 if (shouldTurnLeft_1 && !shouldTurnLeft_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
                     StartCoroutine("StopTurningLeft_1");
                 }
                 if (!shouldTurnLeft_1 && shouldTurnLeft_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
-                    Debug.Log("Got here 2");
+                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
                     StartCoroutine("StopTurningLeft_2");
                 }
                 if ((this.transform.position.z > -25.0f || this.transform.position.x > 41.0f) && !turning)
@@ -201,6 +201,7 @@ public class Deer : MonoBehaviour
 
                 if ((sceneTimer > UnityEngine.Random.Range(2,7)) && state1)
                 {
+                    debugText.text = "State 1";
                     state1 = false;
                     Debug.Log("scene 1");
                     sceneTimer = 0.0f;
@@ -211,6 +212,7 @@ public class Deer : MonoBehaviour
 
                 if ( state2 && sceneTimer > 10 )
                 {
+                    debugText.text = "State 2";
                     deer.SetBool(walking, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(StopTurnToIdle(4.1f, 2));
@@ -224,6 +226,7 @@ public class Deer : MonoBehaviour
 
                 if (state3 && sceneTimer > 6)
                 {
+                    debugText.text = "State 3";
                     deer.SetBool(walking, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(StopTurnToIdle(4.1f, 3));
@@ -237,6 +240,7 @@ public class Deer : MonoBehaviour
 
                 if (state4)
                 {
+                    debugText.text = "State 4";
                     deer.SetBool(_idle, false);
                     deer.SetBool(eating, true);
                     StartCoroutine(SceneWait(4.0f, 4));
@@ -244,6 +248,7 @@ public class Deer : MonoBehaviour
 
                 if (state5 && sceneTimer > 5.5)
                 {
+                    debugText.text = "State 5";
                     deer.SetBool(walking, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(StopTurnToIdle(5.1f, 5));
@@ -251,12 +256,13 @@ public class Deer : MonoBehaviour
 
                 if (scene5Rotation)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
+                        Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
                 }
 
                 if (state6)
                 {
+                    debugText.text = "State 6";
                     deer.SetBool(_idle, false);
                     deer.SetBool(lay, true);
                     StartCoroutine(SceneWait(3.0f, 6));
@@ -264,6 +270,7 @@ public class Deer : MonoBehaviour
 
                 if (state7)
                 {
+                    debugText.text = "State 7";
                     deer.SetBool(lay, false);
                     deer.SetBool(up, true);
                     StartCoroutine(SceneWait(1.3f, 7));
@@ -271,6 +278,7 @@ public class Deer : MonoBehaviour
 
                 if (state8)
                 {
+                    debugText.text = "State 8";
                     StartCoroutine(SceneWait(1.2f, 8));
                 }    
    
@@ -281,27 +289,22 @@ public class Deer : MonoBehaviour
                 // This code handles turning the deer around when it reaches the boundaries
                 if (shouldTurnRight_1 && !shouldTurnRight_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -120.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, -120.0f, 30.0f);
                     StartCoroutine("StopTurningRight_1");
                 }
                 if (!shouldTurnRight_1 && shouldTurnRight_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
                     StartCoroutine("StopTurningRight_2");
                 }
                 if (shouldTurnLeft_1 && !shouldTurnLeft_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
                     StartCoroutine("StopTurningLeft_1");
                 }
                 if (!shouldTurnLeft_1 && shouldTurnLeft_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
-                    Debug.Log("Got here 2");
+                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
                     StartCoroutine("StopTurningLeft_2");
                 }
                 if ((this.transform.position.z > -25.0f || this.transform.position.x > 41.0f) && !turning)
@@ -344,27 +347,22 @@ public class Deer : MonoBehaviour
                 // This code handles turning the deer around when it reaches the boundaries
                 if (shouldTurnRight_1 && !shouldTurnRight_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -120.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, -120.0f, 30.0f);
                     StartCoroutine("StopTurningRight_1");
                 }
                 if (!shouldTurnRight_1 && shouldTurnRight_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
                     StartCoroutine("StopTurningRight_2");
                 }
                 if (shouldTurnLeft_1 && !shouldTurnLeft_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
                     StartCoroutine("StopTurningLeft_1");
                 }
                 if (!shouldTurnLeft_1 && shouldTurnLeft_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
-                    Debug.Log("Got here 2");
+                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
                     StartCoroutine("StopTurningLeft_2");
                 }
                 if ((this.transform.position.z > -25.0f || this.transform.position.x > 41.0f) && !turning)
@@ -407,27 +405,22 @@ public class Deer : MonoBehaviour
                 // This code handles turning the deer around when it reaches the boundaries
                 if (shouldTurnRight_1 && !shouldTurnRight_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -120.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, -120.0f, 30.0f);
                     StartCoroutine("StopTurningRight_1");
                 }
                 if (!shouldTurnRight_1 && shouldTurnRight_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
                     StartCoroutine("StopTurningRight_2");
                 }
                 if (shouldTurnLeft_1 && !shouldTurnLeft_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
                     StartCoroutine("StopTurningLeft_1");
                 }
                 if (!shouldTurnLeft_1 && shouldTurnLeft_2)
                 {
-                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
-                        Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
-                    Debug.Log("Got here 2");
+                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
                     StartCoroutine("StopTurningLeft_2");
                 }
                 if ((this.transform.position.z > -25.0f || this.transform.position.x > 41.0f) && !turning)
@@ -694,6 +687,13 @@ public class Deer : MonoBehaviour
         //    deer.SetBool("died", true);
         //    deer.SetBool("idle",false);
         //}
+    }
+
+    private Quaternion RotateOverTime(Transform transform, float angleTowards, float degreesPerSecond)
+    {
+        return Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, angleTowards, transform.rotation.eulerAngles.z), 
+                        degreesPerSecond * Time.deltaTime);
     }
 
     private void ResetAllState()
