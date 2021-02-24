@@ -17,9 +17,13 @@ public class Deer : MonoBehaviour
     private bool shouldTurnRight_1 = false;
     private bool shouldTurnRight_2 = false;
 
+    private bool turning = false;
+    private bool coroCalled = false;
+
     private bool shouldTurnLeft_1 = false;
     private bool shouldTurnLeft_2 = false;
     private int turnCount = 0;
+
 
     // hashed keys for SetBool
 
@@ -64,21 +68,35 @@ public class Deer : MonoBehaviour
         switch (deerID)
         {
             case 1:
-                if (shouldTurnRight_1)
+                if (shouldTurnRight_1 && !shouldTurnRight_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, -120.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningRight_1");
+                }
+                if (!shouldTurnRight_1 && shouldTurnRight_2)
                 {
                     deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
                         Quaternion.Euler(transform.rotation.eulerAngles.x, 90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
-                    StartCoroutine("StopTurningRight");
+                    StartCoroutine("StopTurningRight_2");
                 }
-                if (shouldTurnLeft_1)
+                if (shouldTurnLeft_1 && !shouldTurnLeft_2)
+                {
+                    deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
+                        Quaternion.Euler(transform.rotation.eulerAngles.x, 60.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                    StartCoroutine("StopTurningLeft_1");
+                }
+                if (!shouldTurnLeft_1 && shouldTurnLeft_2)
                 {
                     deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
                         Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
-                    StartCoroutine("StopTurningLeft");
+                    Debug.Log("Got here 2");
+                    StartCoroutine("StopTurningLeft_2");
                 }
-                if (this.transform.position.z > -25.0f || this.transform.position.x > 41.0f)
+                if ((this.transform.position.z > -25.0f || this.transform.position.x > 41.0f) && !turning)
                 {
                     shouldTurnLeft_1 = true;
+
                     deer.SetBool("idle", false);
                     deer.SetBool("walking", true);
                     deer.SetBool("turnleft", false);
@@ -91,7 +109,7 @@ public class Deer : MonoBehaviour
                     deer.SetBool("jumping", false);
                     return;
                 } 
-                if (this.transform.position.x < -41.0f || this.transform.position.z < -52.0f )
+                if ((this.transform.position.x < -41.0f || this.transform.position.z < -52.0f ) && !turning)
                     shouldTurnRight_1 = true;
                     deer.SetBool("idle", false);
                     deer.SetBool("walking", true);
@@ -465,25 +483,31 @@ public class Deer : MonoBehaviour
     }
     IEnumerator StopTurningLeft_1()
     {
+        turning = true;
         yield return new WaitForSeconds(1.05f);
         shouldTurnLeft_1 = false;
+        shouldTurnLeft_2 = true;
     }
 
     IEnumerator StopTurningRight_1()
     {
+        turning = true;
         yield return new WaitForSeconds(1.05f);
         shouldTurnRight_1 = false;
+        shouldTurnRight_2 = true;
     }
     IEnumerator StopTurningLeft_2()
     {
         yield return new WaitForSeconds(5.1f);
         shouldTurnLeft_2 = false;
+        turning = false;
     }
 
     IEnumerator StopTurningRight_2()
     {
         yield return new WaitForSeconds(5.1f);
         shouldTurnRight_2 = false;
+        turning = false;
     }
 
     IEnumerator walk()
