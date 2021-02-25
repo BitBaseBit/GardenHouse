@@ -675,7 +675,7 @@ public class Deer : MonoBehaviour
                 // End of boundary handling code.
                 // ------------------------------------------------------------
 
-                if ((sceneTimer > 6.2f) && state1)
+                if ((sceneTimer > 7.2f) && state1)
                 {
                     state1 = false;
                     Debug.Log("scene 1");
@@ -689,12 +689,12 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(walking, true);
                     deer.SetBool(_idle, false);
-                    StartCoroutine(StopTurnToIdle(4.1f, 2));
+                    StartCoroutine(StopTurnToIdle(3.1f, 2));
                 }    
 
                 if (scene2Rotation)
                 {
-                    deerTransform.rotation = RotateOverTime(deerTransform, 30.0f, 30.0f);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 0.0f, 30.0f);
                     //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
                     //    Quaternion.Euler(transform.rotation.eulerAngles.x, 30.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
                 }
@@ -771,7 +771,7 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(walking, false);
                     deer.SetBool(_idle, true);
-                    StartCoroutine(SceneWait(5.5f, 10));
+                    StartCoroutine(SceneWait(4.0f, 10));
                 }
 
                 if (state11)
@@ -895,7 +895,6 @@ public class Deer : MonoBehaviour
                 if ((sceneTimer > UnityEngine.Random.Range(5.0f,10.0f)) && state1)
                 {
                     state1 = false;
-                    Debug.Log("scene 1");
                     sceneTimer = 0.0f;
                     deer.SetBool(eating, false);
                     deer.SetBool(_idle, true);
@@ -920,12 +919,12 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(walking, true);
                     deer.SetBool(_idle, false);
-                    StartCoroutine(StopTurnToIdle(4.1f, 3));
+                    StartCoroutine(StopTurnToIdle(3.1f, 3));
                 }    
 
                 if (scene3Rotation)
                 {
-                    deerTransform.rotation = RotateOverTime(deerTransform, -90.0f, 30.0f);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 90.0f, 30.0f);
                     //deerTransform.rotation = Quaternion.RotateTowards(transform.rotation, 
                     //    Quaternion.Euler(transform.rotation.eulerAngles.x, -90.0f, transform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
                 }
@@ -934,22 +933,22 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(_idle, false);
                     deer.SetBool(eating, true);
-                    StartCoroutine(SceneWait(4.0f, 4));
+                    StartCoroutine(SceneWait(5.1f, 4));
                 }
 
                 if (state5 && sceneTimer > 5.5)
                 {
-                    deer.SetBool(walking, true);
-                    deer.SetBool(_idle, false);
-                    StartCoroutine(StopTurnToIdle(5.1f, 5));
+                    deer.SetBool(_idle, true);
+                    deer.SetBool(eating, false);
+                    StartCoroutine(StopTurnToIdle(4.1f, 5));
                 }
 
-                if (scene5Rotation)
-                {
-                    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
-                    //deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
-                    //    Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
-                }
+                //if (scene5Rotation)
+                //{
+                //    deerTransform.rotation = RotateOverTime(deerTransform, 60.0f, 30.0f);
+                //    //deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
+                //    //    Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
+                //}
                 if (state6)
                 {
                     deer.SetBool(_idle, false);
