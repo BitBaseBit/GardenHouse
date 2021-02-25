@@ -206,7 +206,7 @@ public class Deer : MonoBehaviour
                 // End of boundary handling code.
                 // ------------------------------------------------------------
 
-                if ((sceneTimer > UnityEngine.Random.Range(2,7)) && state1)
+                if ((sceneTimer > 7.1f) && state1)
                 {
                     state1 = false;
                     Debug.Log("scene 1");
@@ -268,21 +268,21 @@ public class Deer : MonoBehaviour
                 if (state6)
                 {
                     deer.SetBool(_idle, false);
-                    deer.SetBool(lay, true);
+                    deer.SetBool(eating, true);
                     StartCoroutine(SceneWait(3.0f, 6));
                 }    
 
-                if (state7)
-                {
-                    deer.SetBool(lay, false);
-                    deer.SetBool(up, true);
-                    StartCoroutine(SceneWait(1.3f, 7));
-                }    
+                //if (state7)
+                //{
+                //    deer.SetBool(lay, false);
+                //    deer.SetBool(up, true);
+                //    StartCoroutine(SceneWait(1.3f, 7));
+                //}    
 
                 if (state8)
                 {
                     deer.SetBool(_idle, true);
-                    deer.SetBool(up, false);
+                    deer.SetBool(eating, false);
                     StartCoroutine(StopTurnToIdle(1.2f, 8));
                 }    
 
@@ -309,7 +309,7 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(_idle, false);
                     deer.SetBool(galloping, true);
-                    StartCoroutine(SceneWait(4.5f, 11));
+                    StartCoroutine(SceneWait(8.5f, 11));
                 }
 
                 if (state12)
@@ -550,7 +550,7 @@ public class Deer : MonoBehaviour
                     debugText.text = "State 10";
                     deer.SetBool(walking, false);
                     deer.SetBool(_idle, true);
-                    StartCoroutine(SceneWait(1.5f, 10));
+                    StartCoroutine(SceneWait(3.5f, 10));
                 }
 
                 if (state11)
@@ -558,7 +558,7 @@ public class Deer : MonoBehaviour
                     debugText.text = "State 11";
                     deer.SetBool(_idle, false);
                     deer.SetBool(galloping, true);
-                    StartCoroutine(SceneWait(4.5f, 11));
+                    StartCoroutine(SceneWait(8.5f, 11));
                 }
 
                 if (state12)
@@ -737,21 +737,21 @@ public class Deer : MonoBehaviour
                 if (state6)
                 {
                     deer.SetBool(_idle, false);
-                    deer.SetBool(lay, true);
+                    deer.SetBool(eating, true);
                     StartCoroutine(SceneWait(3.0f, 6));
                 }    
 
-                if (state7)
-                {
-                    deer.SetBool(lay, false);
-                    deer.SetBool(up, true);
-                    StartCoroutine(SceneWait(1.3f, 7));
-                }    
+                //if (state7)
+                //{
+                //    deer.SetBool(lay, false);
+                //    deer.SetBool(up, true);
+                //    StartCoroutine(SceneWait(1.3f, 7));
+                //}    
 
                 if (state8)
                 {
                     deer.SetBool(_idle, true);
-                    deer.SetBool(up, false);
+                    deer.SetBool(eating, false);
                     StartCoroutine(StopTurnToIdle(1.2f, 8));
                 }    
 
@@ -778,7 +778,7 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(_idle, false);
                     deer.SetBool(galloping, true);
-                    StartCoroutine(SceneWait(4.5f, 11));
+                    StartCoroutine(SceneWait(8.5f, 11));
                 }
 
                 if (state12)
@@ -950,25 +950,24 @@ public class Deer : MonoBehaviour
                     //deerTransform.rotation = Quaternion.RotateTowards(deerTransform.rotation, 
                     //    Quaternion.Euler(deerTransform.rotation.eulerAngles.x, 60.0f, deerTransform.rotation.eulerAngles.z), 30.0f * Time.deltaTime);
                 }
-
                 if (state6)
                 {
                     deer.SetBool(_idle, false);
-                    deer.SetBool(lay, true);
+                    deer.SetBool(eating, true);
                     StartCoroutine(SceneWait(3.0f, 6));
                 }    
 
-                if (state7)
-                {
-                    deer.SetBool(lay, false);
-                    deer.SetBool(up, true);
-                    StartCoroutine(SceneWait(1.3f, 7));
-                }    
+                //if (state7)
+                //{
+                //    deer.SetBool(lay, false);
+                //    deer.SetBool(up, true);
+                //    StartCoroutine(SceneWait(1.3f, 7));
+                //}    
 
                 if (state8)
                 {
                     deer.SetBool(_idle, true);
-                    deer.SetBool(up, false);
+                    deer.SetBool(eating, false);
                     StartCoroutine(StopTurnToIdle(1.2f, 8));
                 }    
 
@@ -995,7 +994,7 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(_idle, false);
                     deer.SetBool(galloping, true);
-                    StartCoroutine(SceneWait(4.5f, 11));
+                    StartCoroutine(SceneWait(8.5f, 11));
                 }
 
                 if (state12)
@@ -1426,7 +1425,7 @@ public class Deer : MonoBehaviour
             case 8:
                 state8         = false;
 
-                if (deerID == 2)
+                if (deerID == 2 || deerID == 1)
                 {
                     yield return new WaitForSeconds(time);
                     state9 = true;
@@ -1473,16 +1472,10 @@ public class Deer : MonoBehaviour
             case 6:
                 state6 = false;
                 yield return new WaitForSeconds(time);
-                if (deerID == 2)
-                {
-                    state8 = true;
-                    break;
-                }
-                else
-                {
-                    state7 = true;
-                    break;
-                }
+            
+                state8 = true;
+                break;
+              
 
             case 7:
                 state7 = false;
