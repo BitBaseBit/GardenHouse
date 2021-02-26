@@ -15,6 +15,9 @@ public class Fox : MonoBehaviour
     int walkRight;
     int walkSlow;
 
+    [SerializeField]
+    FoxAttackSO hasFoxStartedAttack;
+
     int randInt;
 
     private void Awake()

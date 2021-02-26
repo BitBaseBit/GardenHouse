@@ -10,7 +10,6 @@ public class Deer : MonoBehaviour
     private IEnumerator coroutine;
     private int         deerID;
 
-    TextMeshPro debugText;
     
     private float       globalTimer;
     private float       sceneTimer;
@@ -88,6 +87,10 @@ public class Deer : MonoBehaviour
 
     // ------------------------------------------------------------------------
 
+    [SerializeField]
+    FoxAttackSO hasFoxStartedAttack;
+
+
 	// Use this for initialization
 	void Start () 
     {
@@ -124,7 +127,6 @@ public class Deer : MonoBehaviour
         // This sets off the animation sequence
         state1 = true;
 
-        debugText = GameObject.FindGameObjectWithTag("textMesh").GetComponent<TextMeshPro>();
 	}
 	
 	// Update is called once per frame
@@ -441,7 +443,6 @@ public class Deer : MonoBehaviour
 
                 if ((sceneTimer > 4.8f) && state1)
                 {
-                    debugText.text = "State 1";
                     state1 = false;
                     Debug.Log("scene 1");
                     sceneTimer = 0.0f;
@@ -452,7 +453,6 @@ public class Deer : MonoBehaviour
 
                 if ( state2 && sceneTimer > 10 )
                 {
-                    debugText.text = "State 2";
                     deer.SetBool(eating, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(StopTurnToIdle(6.1f, 2));
@@ -467,7 +467,6 @@ public class Deer : MonoBehaviour
 
                 if (state3 && sceneTimer > 5.3f)
                 {
-                    debugText.text = "State 3";
                     deer.SetBool(walking, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(StopTurnToIdle(4.1f, 3));
@@ -482,7 +481,6 @@ public class Deer : MonoBehaviour
 
                 if (state4)
                 {
-                    debugText.text = "State 4";
                     deer.SetBool(_idle, false);
                     deer.SetBool(eating, true);
                     StartCoroutine(SceneWait(5.3f, 4));
@@ -490,7 +488,6 @@ public class Deer : MonoBehaviour
 
                 if (state5 && sceneTimer > 5.5)
                 {
-                    debugText.text = "State 5";
                     deer.SetBool(walking, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(StopTurnToIdle(3.1f, 5));
@@ -505,7 +502,6 @@ public class Deer : MonoBehaviour
 
                 if (state6)
                 {
-                    debugText.text = "State 6";
                     deer.SetBool(_idle, false);
                     deer.SetBool(eating, true);
                     StartCoroutine(SceneWait(3.0f, 6));
@@ -513,19 +509,16 @@ public class Deer : MonoBehaviour
 
                 //if (state7)
                 //{
-                //    debugText.text = "State 7";
                 //    StartCoroutine(SceneWait(1.3f, 7));
                 //}    
 
                 if (state8)
                 {
-                    debugText.text = "State 8";
                     StartCoroutine(StopTurnToIdle(1.2f, 8));
                 }    
 
                 if (state9)
                 {
-                    debugText.text = "State 9";
                     deer.SetBool(eating, false);
                     deer.SetBool(walking, true);
                     StartCoroutine(SceneWait(3.1f, 9));
@@ -538,7 +531,6 @@ public class Deer : MonoBehaviour
 
                 if (state9_2)
                 {
-                    debugText.text = "State 9_2";
                     deer.SetBool(_idle, false);
                     deer.SetBool(walking, true);
                     StartCoroutine(SceneWait(2.1f, 92));
@@ -551,7 +543,6 @@ public class Deer : MonoBehaviour
 
                 if (state9_3)
                 {
-                    debugText.text = "State 9_3";
                     deer.SetBool(_idle, false);
                     deer.SetBool(walking, true);
                     StartCoroutine(SceneWait(4.1f, 93));
@@ -563,7 +554,6 @@ public class Deer : MonoBehaviour
 
                 if (state10)
                 {
-                    debugText.text = "State 10";
                     deer.SetBool(walking, false);
                     deer.SetBool(_idle, true);
                     StartCoroutine(SceneWait(3.5f, 10));
@@ -571,7 +561,6 @@ public class Deer : MonoBehaviour
 
                 if (state11)
                 {
-                    debugText.text = "State 11";
                     deer.SetBool(_idle, false);
                     deer.SetBool(galloping, true);
                     StartCoroutine(SceneWait(8.5f, 11));
@@ -579,7 +568,6 @@ public class Deer : MonoBehaviour
 
                 if (state12)
                 {
-                    debugText.text = "State 12";
                     deer.SetBool(galloping, false);
                     deer.SetBool(walking, true);
                     StartCoroutine(SceneWait(6.5f, 12));
@@ -587,7 +575,6 @@ public class Deer : MonoBehaviour
 
                 if (state13)
                 {
-                    debugText.text = "State 13";
                     StartCoroutine(SceneWait(6.1f, 13));
                 }
 
@@ -598,7 +585,6 @@ public class Deer : MonoBehaviour
 
                 if (state14)
                 {
-                    debugText.text = "State 14";
                     StartCoroutine(SceneWait(3.1f, 14));
                 }
                 if (scene14Rotation)
