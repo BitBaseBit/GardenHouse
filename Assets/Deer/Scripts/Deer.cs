@@ -137,22 +137,11 @@ public class Deer : MonoBehaviour
         {
             case 1:
                 sceneTimer += Time.deltaTime;
-                // Should the deer run away from the player?
-                // TODO HANDLE RUNNING AWAY FROM PLAYER
-                //if (startRunAwaySeq)
-                //{
-                //    // Which way to run
-                //    if (deerTransform.position.x > -3.0f)
-                //    {
-                //        if (deer.GetBool(lay))
-                //        {
-                //            deer.SetBool(lay, false);
-                //            deer.SetBool(up, true);
 
-                //        }
-                //    }
+                if (hasFoxStartedAttack.hasFoxAttackStarted)
+                {
 
-                //}
+                }    
 
                 // ------------------------------------------------------------
                 // This code handles turning the deer around when it reaches the boundaries
@@ -368,22 +357,11 @@ public class Deer : MonoBehaviour
 
             case 2:
                 sceneTimer += Time.deltaTime;
-                // Should the deer run away from the player?
-                // TODO HANDLE RUNNING AWAY FROM PLAYER
-                //if (startRunAwaySeq)
-                //{
-                //    // Which way to run
-                //    if (deerTransform.position.x > -3.0f)
-                //    {
-                //        if (deer.GetBool(lay))
-                //        {
-                //            deer.SetBool(lay, false);
-                //            deer.SetBool(up, true);
 
-                //        }
-                //    }
+                if (hasFoxStartedAttack.hasFoxAttackStarted)
+                {
 
-                //}
+                }    
 
                 // ------------------------------------------------------------
                 // This code handles turning the deer around when it reaches the boundaries
@@ -604,22 +582,11 @@ public class Deer : MonoBehaviour
 
             case 3:
                 sceneTimer += Time.deltaTime;
-                // Should the deer run away from the player?
-                // TODO HANDLE RUNNING AWAY FROM PLAYER
-                //if (startRunAwaySeq)
-                //{
-                //    // Which way to run
-                //    if (deerTransform.position.x > -3.0f)
-                //    {
-                //        if (deer.GetBool(lay))
-                //        {
-                //            deer.SetBool(lay, false);
-                //            deer.SetBool(up, true);
 
-                //        }
-                //    }
+                if (hasFoxStartedAttack.hasFoxAttackStarted)
+                {
 
-                //}
+                }    
 
                 // ------------------------------------------------------------
                 // This code handles turning the deer around when it reaches the boundaries
@@ -821,22 +788,11 @@ public class Deer : MonoBehaviour
 
             case 4: 
                 sceneTimer += Time.deltaTime;
-                // Should the deer run away from the player?
-                // TODO HANDLE RUNNING AWAY FROM PLAYER
-                //if (startRunAwaySeq)
-                //{
-                //    // Which way to run
-                //    if (deerTransform.position.x > -3.0f)
-                //    {
-                //        if (deer.GetBool(lay))
-                //        {
-                //            deer.SetBool(lay, false);
-                //            deer.SetBool(up, true);
 
-                //        }
-                //    }
+                if (hasFoxStartedAttack.hasFoxAttackStarted)
+                {
 
-                //}
+                }    
 
                 // ------------------------------------------------------------
                 // This code handles turning the deer around when it reaches the boundaries

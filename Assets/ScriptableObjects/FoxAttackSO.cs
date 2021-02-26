@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu]
 public class FoxAttackSO : ScriptableObject
 {
-    public bool hasFoxAttackStarted;
+    public bool hasFoxAttackStarted = false;
 
 }
