@@ -42,6 +42,7 @@ public class Fox : MonoBehaviour
         idle         = Animator.StringToHash("idle");
         idleLookLeft = Animator.StringToHash("idleLookLeft");
         sneak        = Animator.StringToHash("sneak");
+        trot         = Animator.StringToHash("trot");
         walk         = Animator.StringToHash("walk");
         walkLeft     = Animator.StringToHash("walkLeft");
         walkRight    = Animator.StringToHash("walkRight");
@@ -112,7 +113,13 @@ public class Fox : MonoBehaviour
         {
             fox.SetBool(sneak, true);
             fox.SetBool(walkSlow, false);
-            StartCoroutine(SceneWait(22.8f, 7));
+            StartCoroutine(SceneWait(46.8f, 7));
+        }
+        // 2min20seconds
+
+        if (state7Rotation)
+        {
+            foxTransform.rotation = RotateOverTime(foxTransform, -250.0f, 5.0f);
         }
 
         if (state8)
@@ -163,9 +170,11 @@ public class Fox : MonoBehaviour
                 state7         = true;
                 break;
             case 7:
-                state7 = false;
+                state7         = false;
+                state7Rotation = true;
                 yield return new WaitForSeconds(time);
-                state8 = true;
+                state7Rotation = false;
+                state8         = true;
                 break;
             case 8:
                 break;
