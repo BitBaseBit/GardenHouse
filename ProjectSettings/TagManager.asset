@@ -19,9 +19,9 @@ TagManager:
   - AvatarHeadAndBody
   - Player
   - PostProcessing
-  - 
-  - 
-  - 
+  - IdleArea
+  - FirstExitArea
+  - SecondExitArea
   - 
   - 
   - 

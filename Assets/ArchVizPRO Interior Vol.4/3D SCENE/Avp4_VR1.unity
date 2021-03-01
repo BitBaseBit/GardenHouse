@@ -507,6 +507,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 282632707}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &282632709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 621601b275941ca4db969a9cecea6fef,
+    type: 3}
+  m_PrefabInstance: {fileID: 282632707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &282632710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282632709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 632ae7eb1d4ce49d38a1e38ee7efe7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: 009000db9c022570-5177ae359c7c593e
 --- !u!1 &341870787
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +789,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4670399085354412660, guid: 3228b3c4f1f27654ab6f8659f2135e27,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 212d018ead55c5640ae9f70f0e9a0c76, type: 2}
     - target: {fileID: 4670399085354412764, guid: 3228b3c4f1f27654ab6f8659f2135e27,
         type: 3}
       propertyPath: m_Enabled
@@ -11555,6 +11579,34 @@ PrefabInstance:
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1265ebbd87e4b748b5c8579706e3c06, type: 3}
+--- !u!1 &1011362427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 112930, guid: f1265ebbd87e4b748b5c8579706e3c06,
+    type: 3}
+  m_PrefabInstance: {fileID: 1011362426}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &1011362428
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011362427}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.26
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1127808850
 GameObject:
   m_ObjectHideFlags: 0
@@ -14528,7 +14580,7 @@ PrefabInstance:
     - target: {fileID: 1748791107323033503, guid: dc1873335c9b01149a6d433feae0d44d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 42.65
+      value: 48.71
       objectReference: {fileID: 0}
     - target: {fileID: 1748791107323033503, guid: dc1873335c9b01149a6d433feae0d44d,
         type: 3}
@@ -15265,6 +15317,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1748791107323424003, guid: dc1873335c9b01149a6d433feae0d44d,
+        type: 3}
+      propertyPath: foxTransform
+      value: 
+      objectReference: {fileID: 2018437445}
     - target: {fileID: 1748791107323424003, guid: dc1873335c9b01149a6d433feae0d44d,
         type: 3}
       propertyPath: hasFoxStartedAttack
