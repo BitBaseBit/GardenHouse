@@ -30,7 +30,10 @@ public class Deer : MonoBehaviour
     private bool        scene12Rotation   = false;
     private bool        scene13Rotation   = false;
     private bool        scene14Rotation   = false;
+    private bool        scene15Rotation   = false;
     private bool        scene16Rotation   = false;
+    private bool        scene19Rotation   = false;
+    private bool        scene20Rotation   = false;
 
     // ------------------------------------------------------------------------
     // Handle the transisions of state
@@ -303,7 +306,7 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(_idle, false);
                     deer.SetBool(galloping, true);
-                    StartCoroutine(SceneWait(8.5f, 11));
+                    StartCoroutine(SceneWait(10.5f, 11));
                 }
 
                 if (state12)
@@ -356,17 +359,45 @@ public class Deer : MonoBehaviour
 
                 if (state16)
                 {
+                    deer.SetBool(walking, true);
+                    deer.SetBool(eating, false);
+                    StartCoroutine(SceneWait(6.1f, 16));
+                }
 
+                if (scene16Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -210.0f, 30);
                 }
 
                 if (state17)
                 {
-
+                    deer.SetBool(eating, true);
+                    deer.SetBool(walking, false);
+                    StartCoroutine(SceneWait(6.3f, 17));
                 }
 
                 if (state18)
                 {
+                    deer.SetBool(_idle, true);
+                    deer.SetBool(eating, false);
+                    StartCoroutine(SceneWait(21.5f, 18));
+                }
 
+                if (state19)
+                {
+                    StartCoroutine(SceneWait(42.0f, 19));
+                }
+
+                if (state20)
+                {
+                    deer.SetBool(_idle, false);
+                    deer.SetBool(galloping, true);
+                    StartCoroutine(SceneWait(23.2f, 20));
+                }
+
+                if (scene20Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -170, 5.0f);
                 }
 
 
@@ -611,11 +642,27 @@ public class Deer : MonoBehaviour
                 {
                     deer.SetBool(eating, true);
                     deer.SetBool(walking, false);
+                    StartCoroutine(SceneWait(28.3f, 17));
                 }
 
                 if (state18)
                 {
+                    deer.SetBool(_idle, true);
+                    deer.SetBool(eating, false);
+                    StartCoroutine(SceneWait(40.2f, 18));
+                }
 
+                if (state19)
+                {
+
+                    deer.SetBool(galloping, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(SceneWait(25.2f, 19));
+                }    
+
+                if (scene19Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -180.0f, 20);
                 }
    
                 break;
@@ -823,19 +870,50 @@ public class Deer : MonoBehaviour
                     StartCoroutine(SceneWait(6.3f, 15));
                 }
 
-                if (state16)
+                if (state16 && sceneTimer > 3.2f)
                 {
+                    deer.SetBool(eating, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(4.1f, 16));
+                }
 
+                if (scene16Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -150.0f, 30.0f);
                 }
 
                 if (state17)
                 {
-
+                    deer.SetBool(eating, true);
+                    deer.SetBool(walking, false);
+                    StartCoroutine(SceneWait(28.2f, 17));
                 }
 
                 if (state18)
                 {
+                    deer.SetBool(_idle, true);
+                    deer.SetBool(eating, false);
+                    StartCoroutine(SceneWait(36.2f, 18));
+                }
 
+                if (state19)
+                {
+                    Debug.Log("State19 from deer3");
+                    deer.SetBool(galloping, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(SceneWait(21.0f, 19));
+                }
+
+                if (scene19Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -180.0f, 3.0f);
+                }
+
+                if (state20)
+                {
+                    deer.SetBool(galloping, false);
+                    deer.SetBool(_idle, true);
+                    state20 = false;
                 }
    
                 break;
@@ -1579,30 +1657,15 @@ public class Deer : MonoBehaviour
                 break;
 
             case 13:
-                state13 = false;
+                state13         = false;
+                scene13Rotation = true;
 
-                if (deerID == 2)
-                {
-                    scene13Rotation = true;
+                yield return new WaitForSeconds(time);
 
-                    yield return new WaitForSeconds(time);
+                scene13Rotation = false;
+                state14         = true;
+                break;
 
-                    scene13Rotation = false;
-                    state15 = true;
-                    break;
-
-                }    
-                else
-                {
-                    scene13Rotation = true;
-
-                    yield return new WaitForSeconds(time);
-
-                    scene13Rotation = false;
-                    state14 = true;
-                    break;
-
-                }
 
             case 14:
                 state14         = false;
@@ -1616,9 +1679,10 @@ public class Deer : MonoBehaviour
                 break;
 
             case 15:
-                state15 = false;
+                state15    = false;
                 yield return new WaitForSeconds(time);
-                state16 = true;
+                sceneTimer = 0;
+                state16    = true;
                 break;
 
             case 16:
@@ -1626,7 +1690,31 @@ public class Deer : MonoBehaviour
                 scene16Rotation = true;
                 yield return new WaitForSeconds(time);
                 scene16Rotation = false;
-                state17 = true;
+                state17         = true;
+                break;
+            case 17:
+                state17 = false;
+                yield return new WaitForSeconds(time);
+                state18 = true;
+                break;
+            case 18:
+                state18 = false;
+                yield return new WaitForSeconds(time);
+                state19 = true;
+                break;
+            case 19:
+                state19         = false;
+                scene19Rotation = true;
+                yield return new WaitForSeconds(time);
+                scene19Rotation = false;
+                state20         = true;
+                break;
+            case 20:
+                state20         = false;
+                scene20Rotation = true;
+                yield return new WaitForSeconds(time);
+                scene20Rotation = false;
+                state21         = true;
                 break;
         }
     }
