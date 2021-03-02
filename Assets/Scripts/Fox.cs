@@ -127,6 +127,11 @@ public class Fox : MonoBehaviour
 
         }
 
+        if (hasFoxStartedAttack.hasFoxAttackFinished)
+        {
+            Debug.Log("STOP STALKING!");
+        }
+
     }
 
     IEnumerator SceneWait(float time, int stateNumber)

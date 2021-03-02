@@ -124,11 +124,6 @@ public class Deer : MonoBehaviour
             case 1:
                 sceneTimer += Time.deltaTime;
 
-                if (hasFoxStartedAttack.hasFoxAttackStarted)
-                {
-
-                }    
-
                 if ((sceneTimer > 7.1f) && state1)
                 {
                     state1 = false;
@@ -317,11 +312,12 @@ public class Deer : MonoBehaviour
 
                 if (scene20Rotation)
                 {
-                    deerTransform.rotation = RotateOverTime(deerTransform, 180, 5.0f);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 180, 30.0f);
                 }
 
                 if (deerTransform.position.z > 185.0f)
                 {
+                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     Destroy(this.gameObject);
                 }
 
@@ -329,12 +325,6 @@ public class Deer : MonoBehaviour
 
             case 2:
                 sceneTimer += Time.deltaTime;
-
-                if (hasFoxStartedAttack.hasFoxAttackStarted)
-                {
-
-                }    
-
 
                 if ((sceneTimer > 4.8f) && state1)
                 {
@@ -526,11 +516,12 @@ public class Deer : MonoBehaviour
 
                 if (scene19Rotation)
                 {
-                    deerTransform.rotation = RotateOverTime(deerTransform, 150.0f, 20);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 180.0f, 20.0f);
                 }
 
                 if (deerTransform.position.z > 185.0f)
                 {
+                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     Destroy(this.gameObject);
                 }
 
@@ -538,11 +529,6 @@ public class Deer : MonoBehaviour
 
             case 3:
                 sceneTimer += Time.deltaTime;
-
-                if (hasFoxStartedAttack.hasFoxAttackStarted)
-                {
-
-                }    
 
                 if ((sceneTimer > 7.2f) && state1)
                 {
@@ -713,11 +699,12 @@ public class Deer : MonoBehaviour
 
                 if (scene19Rotation)
                 {
-                    deerTransform.rotation = RotateOverTime(deerTransform, 150.0f, 3.0f);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 180.0f, 30.0f);
                 }
 
                 if (deerTransform.position.z > 185.0f)
                 {
+                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     Destroy(this.gameObject);
                 }
 
@@ -725,11 +712,6 @@ public class Deer : MonoBehaviour
 
             case 4: 
                 sceneTimer += Time.deltaTime;
-
-                if (hasFoxStartedAttack.hasFoxAttackStarted)
-                {
-
-                }    
 
                 if ((sceneTimer > UnityEngine.Random.Range(5.0f,10.0f)) && state1)
                 {
@@ -900,11 +882,12 @@ public class Deer : MonoBehaviour
 
                 if (scene19Rotation)
                 {
-                    deerTransform.rotation = RotateOverTime(deerTransform, 150.0f, 20);
+                    deerTransform.rotation = RotateOverTime(deerTransform, 180.0f, 30.0f);
                 }
 
                 if (deerTransform.position.z > 185.0f)
                 {
+                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     Destroy(this.gameObject);
                 }
 
