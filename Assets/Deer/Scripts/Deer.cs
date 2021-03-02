@@ -664,6 +664,12 @@ public class Deer : MonoBehaviour
                 {
                     deerTransform.rotation = RotateOverTime(deerTransform, -180.0f, 20);
                 }
+
+                if (state20)
+                {
+                    deer.SetBool(galloping, false);
+                    deer.SetBool(_idle, true);
+                }
    
                 break;
 
@@ -1118,21 +1124,51 @@ public class Deer : MonoBehaviour
                     deer.SetBool(eating, true);
                     StartCoroutine(SceneWait(6.3f, 15));
                 }
-
                 if (state16)
                 {
+                    deer.SetBool(eating, false);
+                    deer.SetBool(walking, true);
+                    StartCoroutine(SceneWait(4.1f, 16));
+                }
 
+                if (scene16Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, 150.0f, 15.0f);
                 }
 
                 if (state17)
                 {
-
+                    deer.SetBool(eating, true);
+                    deer.SetBool(walking, false);
+                    StartCoroutine(SceneWait(37.3f, 17));
                 }
 
                 if (state18)
                 {
-
+                    deer.SetBool(_idle, true);
+                    deer.SetBool(eating, false);
+                    StartCoroutine(SceneWait(40.2f, 18));
                 }
+
+                if (state19)
+                {
+
+                    deer.SetBool(galloping, true);
+                    deer.SetBool(_idle, false);
+                    StartCoroutine(SceneWait(25.2f, 19));
+                }    
+
+                if (scene19Rotation)
+                {
+                    deerTransform.rotation = RotateOverTime(deerTransform, -150.0f, 20);
+                }
+
+                if (state20)
+                {
+                    deer.SetBool(galloping, false);
+                    deer.SetBool(_idle, true);
+                }
+
                 break;
 
             default:
