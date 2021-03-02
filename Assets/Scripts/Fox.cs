@@ -124,12 +124,14 @@ public class Fox : MonoBehaviour
 
         if (state8)
         {
-
+            fox.SetBool(sneak, false);
+            fox.SetBool(walk, true);
         }
 
         if (hasFoxStartedAttack.hasFoxAttackFinished)
         {
-            Debug.Log("STOP STALKING!");
+            state8 = true;
+            hasFoxStartedAttack.hasFoxAttackFinished = false;
         }
 
     }
@@ -179,7 +181,6 @@ public class Fox : MonoBehaviour
                 state7Rotation = true;
                 yield return new WaitForSeconds(time);
                 state7Rotation = false;
-                state8         = true;
                 break;
             case 8:
                 break;

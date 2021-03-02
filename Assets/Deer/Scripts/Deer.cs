@@ -306,6 +306,7 @@ public class Deer : MonoBehaviour
                 if (state20)
                 {
                     deer.SetBool(_idle, false);
+                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     deer.SetBool(galloping, true);
                     StartCoroutine(SceneWait(23.2f, 20));
                 }
@@ -315,9 +316,8 @@ public class Deer : MonoBehaviour
                     deerTransform.rotation = RotateOverTime(deerTransform, 180, 30.0f);
                 }
 
-                if (deerTransform.position.z > 185.0f)
+                if (deerTransform.position.z < -185.0f)
                 {
-                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     Destroy(this.gameObject);
                 }
 
@@ -511,6 +511,7 @@ public class Deer : MonoBehaviour
 
                     deer.SetBool(galloping, true);
                     deer.SetBool(_idle, false);
+                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     StartCoroutine(SceneWait(25.2f, 19));
                 }    
 
@@ -519,7 +520,7 @@ public class Deer : MonoBehaviour
                     deerTransform.rotation = RotateOverTime(deerTransform, 180.0f, 20.0f);
                 }
 
-                if (deerTransform.position.z > 185.0f)
+                if (deerTransform.position.z < -185.0f)
                 {
                     hasFoxStartedAttack.hasFoxAttackFinished = true;
                     Destroy(this.gameObject);
@@ -691,7 +692,7 @@ public class Deer : MonoBehaviour
 
                 if (state19)
                 {
-                    Debug.Log("State19 from deer3");
+                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     deer.SetBool(galloping, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(SceneWait(21.0f, 19));
@@ -702,9 +703,8 @@ public class Deer : MonoBehaviour
                     deerTransform.rotation = RotateOverTime(deerTransform, 180.0f, 30.0f);
                 }
 
-                if (deerTransform.position.z > 185.0f)
+                if (deerTransform.position.z < -185.0f)
                 {
-                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     Destroy(this.gameObject);
                 }
 
@@ -874,7 +874,7 @@ public class Deer : MonoBehaviour
 
                 if (state19)
                 {
-
+                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     deer.SetBool(galloping, true);
                     deer.SetBool(_idle, false);
                     StartCoroutine(SceneWait(25.2f, 19));
@@ -885,9 +885,8 @@ public class Deer : MonoBehaviour
                     deerTransform.rotation = RotateOverTime(deerTransform, 180.0f, 30.0f);
                 }
 
-                if (deerTransform.position.z > 185.0f)
+                if (deerTransform.position.z < -185.0f)
                 {
-                    hasFoxStartedAttack.hasFoxAttackFinished = true;
                     Destroy(this.gameObject);
                 }
 
